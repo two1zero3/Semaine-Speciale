@@ -920,7 +920,7 @@ public void keyReleased() {
   if (keyboardFallback == true) {
     if (keyCode == TAB)            tabPressed = false;
     if (keyCode == SHIFT)          shiftPressed = false;
-    if (keyCode == CONTROL)        controlPressed = false;
+    if (key == 'p')        controlPressed = false;
     if (keyCode == ALT)            altPressed = false;
     if (keyCode == UP)             upPressed = false;
     if (keyCode == DOWN)           downPressed = false;
