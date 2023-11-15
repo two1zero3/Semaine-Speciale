@@ -2870,15 +2870,17 @@ public void displayJoystickState() {
     miniControlSwitchTimer();
 
     //make createRandomJoystickDrift run for 10 seconds then invertMoveControls for 10 seconds then invertSensibility for 10 seconds then loop back to createRandomJoystickDrift
-    float millisForFunction = millis() % 20000;
+    float millisForFunction = millis() % 30000;
     if (millisForFunction < 10000) {
         createRandomJoystickDrift();
+        // invertSensibility();
     } else if (millisForFunction < 20000) {
         invertMoveControls();
+        // invertSensibility();
     }
-    //else if (millisForFunction < 30000) {
-    //     invertSensibility();
-    // }
+    else if (millisForFunction < 30000) {
+        invertSensibility2();
+    }
     
 
     circle(100 + LX * 10,100 + LY * 10,10);
@@ -2954,6 +2956,73 @@ public void invertSensibility() {
         LY = map(LY, -1, -0.05f, -0.05f, -1);
     } else if (LY > 0.05f) {
         LY = map(LY, 0.05f, 1, 1, 0.05f);
+    }
+}
+
+public void invertSensibility2 () {
+    if (LX < -0.1f && LX > -0.25f) {
+        LX = LX*1.5f;
+    } else if (LX < -0.25f && LX > -0.5f) {
+        LX = LX*0.75f;
+    } else if (LX < -0.5f && LX > -0.75f) {
+        LX = LX*2;
+    } else if (LX < -0.75f && LX > -1) {
+        LX = LX*0.25f;
+    } else if (LX > 0.1f && LX < 0.25f) {
+        LX = LX*1.5f;
+    } else if (LX > 0.25f && LX < 0.5f) {
+        LX = LX*0.75f;
+    } else if (LX > 0.5f && LX < 0.75f) {
+        LX = LX*2;
+    } else if (LX > 0.75f && LX < 1) {
+        LX = LX*0.25f;
+    }
+
+    if (LY < -0.1f && LY > -0.25f) {
+        LY = LY*1.5f;
+    } else if (LY < -0.25f && LY > -0.5f) {
+        LY = LY*0.75f;
+    } else if (LY < -0.5f && LY > -0.75f) {
+        LY = LY*2;
+    } else if (LY < -0.75f && LY > -1) {
+        LY = LY*0.25f;
+    } else if (LY > 0.1f && LY < 0.25f) {
+        LY = LY*1.5f;
+    } else if (LY > 0.25f && LY < 0.5f) {
+        LY = LY*0.75f;
+    } else if (LY > 0.5f && LY < 0.75f) {
+        LY = LY*2;
+    } else if (LY > 0.75f && LY < 1) {
+        LY = LY*0.25f;
+    }
+}
+
+public void invertSensibility3() {
+    float d = dist(LX, LY, activeItem.position.x, activeItem.position.y);
+    if (d < -0.1f && d > -0.25f) {
+        LX = LX*1.5f;
+        LY = LY*1.5f;
+    } else if (d < -0.25f && d > -0.5f) {
+        LX = LX*0.75f;
+        LY = LY*0.75f;
+    } else if (d < -0.5f && d > -0.75f) {
+        LX = LX*2;
+        LY = LY*2;
+    } else if (d < -0.75f && d > -1) {
+        LX = LX*0.25f;
+        LY = LY*0.25f;
+    } else if (d > 0.1f && d < 0.25f) {
+        LX = LX*1.5f;
+        LY = LY*1.5f;
+    } else if (d > 0.25f && d < 0.5f) {
+        LX = LX*0.75f;
+        LY = LY*0.75f;
+    } else if (d > 0.5f && d < 0.75f) {
+        LX = LX*2;
+        LY = LY*2;
+    } else if (d > 0.75f && d < 1) {
+        LX = LX*0.25f;
+        LY = LY*0.25f;
     }
 }
 

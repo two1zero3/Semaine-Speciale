@@ -3,15 +3,17 @@ void displayJoystickState() {
     miniControlSwitchTimer();
 
     //make createRandomJoystickDrift run for 10 seconds then invertMoveControls for 10 seconds then invertSensibility for 10 seconds then loop back to createRandomJoystickDrift
-    float millisForFunction = millis() % 20000;
+    float millisForFunction = millis() % 30000;
     if (millisForFunction < 10000) {
         createRandomJoystickDrift();
+        // invertSensibility();
     } else if (millisForFunction < 20000) {
         invertMoveControls();
+        // invertSensibility();
     }
-    //else if (millisForFunction < 30000) {
-    //     invertSensibility();
-    // }
+    else if (millisForFunction < 30000) {
+        invertSensibility2();
+    }
     
 
     circle(100 + LX * 10,100 + LY * 10,10);
@@ -87,5 +89,72 @@ void invertSensibility() {
         LY = map(LY, -1, -0.05, -0.05, -1);
     } else if (LY > 0.05) {
         LY = map(LY, 0.05, 1, 1, 0.05);
+    }
+}
+
+void invertSensibility2 () {
+    if (LX < -0.1 && LX > -0.25) {
+        LX = LX*1.5;
+    } else if (LX < -0.25 && LX > -0.5) {
+        LX = LX*0.75;
+    } else if (LX < -0.5 && LX > -0.75) {
+        LX = LX*2;
+    } else if (LX < -0.75 && LX > -1) {
+        LX = LX*0.25;
+    } else if (LX > 0.1 && LX < 0.25) {
+        LX = LX*1.5;
+    } else if (LX > 0.25 && LX < 0.5) {
+        LX = LX*0.75;
+    } else if (LX > 0.5 && LX < 0.75) {
+        LX = LX*2;
+    } else if (LX > 0.75 && LX < 1) {
+        LX = LX*0.25;
+    }
+
+    if (LY < -0.1 && LY > -0.25) {
+        LY = LY*1.5;
+    } else if (LY < -0.25 && LY > -0.5) {
+        LY = LY*0.75;
+    } else if (LY < -0.5 && LY > -0.75) {
+        LY = LY*2;
+    } else if (LY < -0.75 && LY > -1) {
+        LY = LY*0.25;
+    } else if (LY > 0.1 && LY < 0.25) {
+        LY = LY*1.5;
+    } else if (LY > 0.25 && LY < 0.5) {
+        LY = LY*0.75;
+    } else if (LY > 0.5 && LY < 0.75) {
+        LY = LY*2;
+    } else if (LY > 0.75 && LY < 1) {
+        LY = LY*0.25;
+    }
+}
+
+void invertSensibility3() {
+    float d = dist(LX, LY, activeItem.position.x, activeItem.position.y);
+    if (d < -0.1 && d > -0.25) {
+        LX = LX*1.5;
+        LY = LY*1.5;
+    } else if (d < -0.25 && d > -0.5) {
+        LX = LX*0.75;
+        LY = LY*0.75;
+    } else if (d < -0.5 && d > -0.75) {
+        LX = LX*2;
+        LY = LY*2;
+    } else if (d < -0.75 && d > -1) {
+        LX = LX*0.25;
+        LY = LY*0.25;
+    } else if (d > 0.1 && d < 0.25) {
+        LX = LX*1.5;
+        LY = LY*1.5;
+    } else if (d > 0.25 && d < 0.5) {
+        LX = LX*0.75;
+        LY = LY*0.75;
+    } else if (d > 0.5 && d < 0.75) {
+        LX = LX*2;
+        LY = LY*2;
+    } else if (d > 0.75 && d < 1) {
+        LX = LX*0.25;
+        LY = LY*0.25;
     }
 }
