@@ -167,7 +167,7 @@ void keyPressed() {
   if (keyboardFallback == true) {
     if (keyCode == TAB) tabPressed = true;
     if (keyCode == SHIFT) shiftPressed = true;
-    if (keyCode == CONTROL) controlPressed = true;
+    if (key == 'p')   controlPressed = true;
     if (keyCode == ALT) altPressed = true;
     if (keyCode == UP) upPressed = true;
     if (keyCode == DOWN) downPressed = true;
@@ -248,7 +248,7 @@ void keyReleased() {
   if (keyboardFallback == true) {
     if (keyCode == TAB)            tabPressed = false;
     if (keyCode == SHIFT)          shiftPressed = false;
-    if (key == 'p')        controlPressed = false;
+    if (key == 'p')                 controlPressed = false;
     if (keyCode == ALT)            altPressed = false;
     if (keyCode == UP)             upPressed = false;
     if (keyCode == DOWN)           downPressed = false;
