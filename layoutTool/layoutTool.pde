@@ -45,6 +45,9 @@ void setup() {
 
   // Add first item to work with
   addItem();
+
+  //load the svg's
+  loadSVGs();
 }
 
 
@@ -56,6 +59,14 @@ void draw() {
   checkFiles();
 
   background(bgColor);
+
+  // // display debug joystick state icon
+  // if (true) {
+  //   displayJoystickState();
+  // }
+
+  //test line game
+  lineGameTest(width/2, height/2, 300, color(235,235,235));
 
   // get the input of gamepad and keyboard buttons and joysticks to control the graphic items
   getControllerInput();

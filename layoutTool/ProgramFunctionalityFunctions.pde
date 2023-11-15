@@ -37,6 +37,7 @@ float UItextSize;
 float UIstrokeWeight;
 PFont UIFontRegular;
 PFont UIFontBold;
+PFont UIFontSmall;
 
 
 // –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––-–––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– ADD ITEM –––––––––––––––––
@@ -437,4 +438,5 @@ void setupInterface() {
   UIstrokeWeight = min(width, height) / 30;
   UIFontRegular = createFont("interface/font/strokeWeight-100.otf", UItextSize);
   UIFontBold = createFont("interface/font/strokeWeight-180.otf", UItextSize);
+  UIFontSmall = createFont("interface/font/strokeWeight-100.otf", UItextSize*0.25);
 }

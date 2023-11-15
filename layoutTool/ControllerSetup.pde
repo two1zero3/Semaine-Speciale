@@ -82,6 +82,8 @@ void getGamepadInput() {
   RX = map(device.getSlider("RX").getValue(), -1, 1, -1.0, 1.0);
   RY = map(device.getSlider("RY").getValue(), -1, 1, -1.0, 1.0);
 
+  displayJoystickState();
+
   joystickLeft(LX, LY);
   joystickRight(RX, RY);
 }
