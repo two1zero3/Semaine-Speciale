@@ -24,11 +24,16 @@ Boolean backgroundSound = true;
 // Check the available cameras list in the console after program run to switch index
 int cameraIndex = 0;
 
+PGraphics shaderCanvas;
+PShader shader;
 
 // –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––-–––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– SETUP ––––––––––––––––––––
 
 void setup() {
-  size(800, 800, FX2D);
+  size(800, 800, P2D);
+
+  shaderCanvas = createGraphics(800, 800, P2D);
+  shader = loadShader("shader.glsl");
 
   // Setup all inputs
   setupInterface();

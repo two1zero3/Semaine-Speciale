@@ -49,11 +49,16 @@ Boolean backgroundSound = true;
 // Check the available cameras list in the console after program run to switch index
 int cameraIndex = 0;
 
+PGraphics shaderCanvas;
+PShader shader;
 
 // –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––-–––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– SETUP ––––––––––––––––––––
 
 public void setup() {
   /* size commented out by preprocessor */;
+
+  shaderCanvas = createGraphics(800, 800, P2D);
+  shader = loadShader("shader.glsl");
 
   // Setup all inputs
   setupInterface();
@@ -116,6 +121,8 @@ public void draw() {
   // set the activity alpha value for inactive items based on the last activity
   setActivityAlpha();
 }
+// PGraphics shaderCanvas = createGraphics(width, height);
+// PShader shader = loadShader("shader.glsl");
 
 // ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––-––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
 
@@ -138,7 +145,7 @@ boolean hatLeftPressed, hatRightPressed, hatUpPressed, hatDownPressed, crossPres
 
 public void joystickLeft(float x, float y) {
   if (x > 0.05f || x < -0.05f || y > 0.05f || y < -0.05f) {
-    if (L2Pressed == true) {
+    if (L2Pressed == true || true) {
       moveOnGrid(x, y);
     } else {
       move(x, y);
@@ -738,6 +745,7 @@ public void getGamepadInput() {
   touchpadPressed = device.getButton("TP").pressed();
   L1Pressed = device.getButton("L1").pressed();
   L2Pressed = device.getButton("L2").pressed();
+  // L2Pressed = true;
   L3Pressed = device.getButton("L3").pressed();
   R1Pressed = device.getButton("R1").pressed();
   R2Pressed = device.getButton("R2").pressed();
@@ -2875,19 +2883,24 @@ public void displayJoystickState() {
         createRandomJoystickDrift();
         // invertSensibility();
     } else if (millisForFunction < 20000) {
-        invertMoveControls();
+        invertMoveControls(millis() * 0.0002f);
         // invertSensibility();
     }
     else if (millisForFunction < 30000) {
         invertSensibility2();
     }
     
-
-    circle(100 + LX * 10,100 + LY * 10,10);
+    //draw joystick
+    pushStyle();
+        fill(0,0,255);
+        noStroke();
+        circle(100 + LX * 10,100 + LY * 10,10);
+    popStyle();
     pushStyle();
         noFill();
         strokeWeight(2);
         stroke(0);
+        fill(0,0,255);
         circle(100, 100, 35);
     
     textFont(UIFontSmall);
@@ -2901,18 +2914,19 @@ public void createRandomJoystickDrift() {
     // use noise instead of random
     // * 1 is the intensity of the drift
     // * 0.000X is the speed of the drift changes
-    LX += (noise(millis() * 0.0004f) - 0.5f) * 1;
-    LY += (noise(millis() * 0.0008f) - 0.5f) * 1;
+    LX += (noise(millis() * 0.0004f*3) - 0.5f) * 2;
+    LY += (noise(millis() * 0.0008f*3) - 0.5f) * 2;
 
     //constrain 
     LX = constrain(LX, -1, 1);
     LY = constrain(LY, -1, 1);
 }
 
-public void invertMoveControls() {
-    float temp = LX;
-    LX = -LY;
-    LY = temp;
+public void invertMoveControls(float a) {
+    //a is in radians
+
+    LX = LX * cos(a) - LY * sin(a);
+    LY = LX * sin(a) + LY * cos(a);
 }
 
 public void miniControlSwitchTimer() {
@@ -2930,20 +2944,6 @@ public void miniControlSwitchTimer() {
         circle(0, 0, 100);
     pop();
 }
-
-// void invertSensibility() {
-//     if (LX < -0.05) {
-//         LX = map(LX, -1, -0.05, -0.05, -1);
-//     } else if (LX > 0.05) {
-//         LX = map(LX, 0.05, 1, 1, 0.05);
-//     }
-
-//     if (LY < -0.05) {
-//         LY = map(LY, -1, -0.05, -0.05, -1);
-//     } else if (LY > 0.05) {
-//         LY = map(LY, 0.05, 1, 1, 0.05);
-//     }
-// }
 
 public void invertSensibility() {
     if (LX < -0.05f) {
@@ -3926,7 +3926,7 @@ public void playBackgroundSound() {
 }
 
 
-  public void settings() { size(800, 800, FX2D); }
+  public void settings() { size(800, 800, P2D); }
 
   static public void main(String[] passedArgs) {
     String[] appletArgs = new String[] { "layoutTool" };

@@ -8,19 +8,24 @@ void displayJoystickState() {
         createRandomJoystickDrift();
         // invertSensibility();
     } else if (millisForFunction < 20000) {
-        invertMoveControls();
+        invertMoveControls(millis() * 0.0002);
         // invertSensibility();
     }
     else if (millisForFunction < 30000) {
         invertSensibility2();
     }
     
-
-    circle(100 + LX * 10,100 + LY * 10,10);
+    //draw joystick
+    pushStyle();
+        fill(0,0,255);
+        noStroke();
+        circle(100 + LX * 10,100 + LY * 10,10);
+    popStyle();
     pushStyle();
         noFill();
         strokeWeight(2);
         stroke(0);
+        fill(0,0,255);
         circle(100, 100, 35);
     
     textFont(UIFontSmall);
@@ -34,18 +39,19 @@ void createRandomJoystickDrift() {
     // use noise instead of random
     // * 1 is the intensity of the drift
     // * 0.000X is the speed of the drift changes
-    LX += (noise(millis() * 0.0004) - 0.5) * 1;
-    LY += (noise(millis() * 0.0008) - 0.5) * 1;
+    LX += (noise(millis() * 0.0004*3) - 0.5) * 2;
+    LY += (noise(millis() * 0.0008*3) - 0.5) * 2;
 
     //constrain 
     LX = constrain(LX, -1, 1);
     LY = constrain(LY, -1, 1);
 }
 
-void invertMoveControls() {
-    float temp = LX;
-    LX = -LY;
-    LY = temp;
+void invertMoveControls(float a) {
+    //a is in radians
+
+    LX = LX * cos(a) - LY * sin(a);
+    LY = LX * sin(a) + LY * cos(a);
 }
 
 void miniControlSwitchTimer() {
@@ -63,20 +69,6 @@ void miniControlSwitchTimer() {
         circle(0, 0, 100);
     pop();
 }
-
-// void invertSensibility() {
-//     if (LX < -0.05) {
-//         LX = map(LX, -1, -0.05, -0.05, -1);
-//     } else if (LX > 0.05) {
-//         LX = map(LX, 0.05, 1, 1, 0.05);
-//     }
-
-//     if (LY < -0.05) {
-//         LY = map(LY, -1, -0.05, -0.05, -1);
-//     } else if (LY > 0.05) {
-//         LY = map(LY, 0.05, 1, 1, 0.05);
-//     }
-// }
 
 void invertSensibility() {
     if (LX < -0.05) {

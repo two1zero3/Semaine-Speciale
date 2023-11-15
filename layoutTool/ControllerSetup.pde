@@ -73,6 +73,7 @@ void getGamepadInput() {
   touchpadPressed = device.getButton("TP").pressed();
   L1Pressed = device.getButton("L1").pressed();
   L2Pressed = device.getButton("L2").pressed();
+  // L2Pressed = true;
   L3Pressed = device.getButton("L3").pressed();
   R1Pressed = device.getButton("R1").pressed();
   R2Pressed = device.getButton("R2").pressed();
