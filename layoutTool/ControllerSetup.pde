@@ -248,7 +248,7 @@ void keyReleased() {
   if (keyboardFallback == true) {
     if (keyCode == TAB)            tabPressed = false;
     if (keyCode == SHIFT)          shiftPressed = false;
-    if (keyCode == COMMAND)        controlPressed = false;
+    if (keyCode == p)        controlPressed = false;
     if (keyCode == ALT)            altPressed = false;
     if (keyCode == UP)             upPressed = false;
     if (keyCode == DOWN)           downPressed = false;
