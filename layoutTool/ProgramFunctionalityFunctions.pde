@@ -38,6 +38,7 @@ float UIstrokeWeight;
 PFont UIFontRegular;
 PFont UIFontBold;
 PFont UIFontSmall;
+PFont UIFontMono;
 
 
 // –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––-–––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– ADD ITEM –––––––––––––––––
@@ -335,6 +336,15 @@ void loadFiles() {
   bgColorIndex = myColors.length-1;
   bgColor = myColors[bgColorIndex];
 
+  // // Check for background images in /input/_bg folder
+  // File bgFolder = new File(dataPath("input/_bg/"));
+  // File[] bgFiles = bgFolder.listFiles();
+
+  // // Load background images into new Array
+
+  // for (int i = 0; i < bgFiles.length; i++) {
+  //   myColorsImages.add(loadImage(""+bgFiles[i]));
+  // }
 
   // list all files in data folder
   files = folder.listFiles();
@@ -439,4 +449,5 @@ void setupInterface() {
   UIFontRegular = createFont("interface/font/strokeWeight-100.otf", UItextSize);
   UIFontBold = createFont("interface/font/strokeWeight-180.otf", UItextSize);
   UIFontSmall = createFont("interface/font/strokeWeight-100.otf", UItextSize*0.25);
+  UIFontMono = createFont("interface/font/SpaceMono-Regular.otf", 14);
 }

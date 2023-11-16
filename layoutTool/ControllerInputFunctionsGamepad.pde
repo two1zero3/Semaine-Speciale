@@ -20,7 +20,7 @@ boolean hatLeftPressed, hatRightPressed, hatUpPressed, hatDownPressed, crossPres
 
 void joystickLeft(float x, float y) {
   if (x > 0.05 || x < -0.05 || y > 0.05 || y < -0.05) {
-    if (L2Pressed == true || true) {
+    if (L2Pressed == true) {
       moveOnGrid(x, y);
     } else {
       move(x, y);

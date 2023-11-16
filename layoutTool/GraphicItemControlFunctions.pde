@@ -478,6 +478,7 @@ void setStrokeWeightMinus() {
 
 // EDITABLE VARIABLES
 color [] myColors = {#000000, #FF0000, #FFFF00, #00FF00, #00FFFF, #0000FF, #FF00FF, #FFFFFF}; // preset if no image is found to import colors
+ArrayList<PImage> myColorsImages = new ArrayList<PImage>();
 /*
  You can use an image as source to load a range of colors to use it myColors array.
  The source image must be placed in the data folder 'data/input/colors' and is imported and analysed at setup.
@@ -569,7 +570,7 @@ void setItemColorToPrevious() {
 
 void setBackgroundColorToNext() {
 
-  // increase bgColIndex by one
+   // increase bgColIndex by one
   bgColorIndex++;
 
   // if bgColIndex exeeds total amount of colors in myColors, then jump back to zero

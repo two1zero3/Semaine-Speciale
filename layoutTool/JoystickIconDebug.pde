@@ -16,23 +16,51 @@ void displayJoystickState() {
     }
     
     //draw joystick
+    int bottomOffset = height - 35;
+    int offsetCircle = 35;
+    int offsetText = 75;
+    int offsetTitle = 200;
+    int offsetDescription = width - 35;
     pushStyle();
-        fill(0,0,255);
+        fill(0);
         noStroke();
-        circle(100 + LX * 10,100 + LY * 10,10);
+        circle(offsetCircle + LX * 10, bottomOffset + LY * 10, 5);
     popStyle();
+
     pushStyle();
         noFill();
-        strokeWeight(2);
+        strokeWeight(1);
         stroke(0);
-        fill(0,0,255);
-        circle(100, 100, 35);
-    
-    textFont(UIFontSmall);
-    textAlign(LEFT, TOP);
-    text("LX: " + String.format("%.3f", LX), 10, 150);
-    text("LY: " + String.format("%.3f", LY), 10, 200);
+        circle(offsetCircle, bottomOffset, 35);
     popStyle();
+
+    pushStyle();
+        noStroke();
+        fill(0);
+        textFont(UIFontMono);
+        textAlign(LEFT, TOP);
+        text("LX: " + String.format("%.3f", LX), offsetText, bottomOffset - 20);
+        text("LY: " + String.format("%.3f", LY), offsetText, bottomOffset);
+    popStyle();
+
+    pushStyle();
+        noStroke();
+        fill(0);
+        textFont(UIFontMono);
+        textAlign(LEFT, TOP);
+        text("NOT INTUITIVE", offsetTitle, bottomOffset - 20);
+    popStyle();
+
+    pushStyle();
+        noStroke();
+        // textLeading()
+        fill(0);
+        textFont(UIFontMono);
+        textAlign(RIGHT, TOP);
+        text("REDISCOVER YOUR CHILDLIKE SOUL BY LOSING YOUR USUAL \n BEARINGS AND CREATING INSTINCTIVELY AND RANDOMLY.", offsetDescription, bottomOffset-20);
+    popStyle();
+
+
 }
 
 void createRandomJoystickDrift() {

@@ -528,7 +528,7 @@ class camItem extends GraphicItem {
     String[] cameras = Capture.list();
     println("\nAvailable Cameras: ");
     printArray(cameras);
-    cam = new Capture(main, 1920/2, 1080/2, cameras[cameraIndex], 25);
+    cam = new Capture(main, 1080/2, 1080/2, cameras[cameraIndex], 25);
     cam.start();
     camModeLive = true;
     defaultColor = true;

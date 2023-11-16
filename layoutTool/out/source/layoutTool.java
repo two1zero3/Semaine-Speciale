@@ -38,9 +38,9 @@ public class layoutTool extends PApplet {
 // –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––-–––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– EDITABLE VARIABLES –––––––
 
 // Setup which controller setup you want to use to run the program.
-boolean gamepad = false;
+boolean gamepad = true;
 boolean gamepadFallback = false;
-boolean keyboardFallback = true;
+boolean keyboardFallback = false;
 
 // Turn sound on or off
 Boolean interfaceSound = true;
@@ -57,10 +57,13 @@ PShader shader1;
 public void setup() {
   /* size commented out by preprocessor */;
 
-  shaderCanvas = createGraphics(800, 800, P2D);
-  shader1 = loadShader("input/shader.glsl");
-  shader1.set("u_resolution", PApplet.parseFloat(width), PApplet.parseFloat(height));
+  // shaderCanvas = createGraphics(800, 800);
+  // shader1 = loadShader("input/shader.glsl");
+  // shader1.set("u_resolution", float(width), float(height));
 
+  // Uncomment the following two lines to see the available fonts 
+  String[] fontList = PFont.list();
+  printArray(fontList);
 
   // Setup all inputs
   setupInterface();
@@ -91,7 +94,6 @@ public void draw() {
   checkFiles();
 
   background(bgColor);
-
   // // display debug joystick state icon
   // if (true) {
   //   displayJoystickState();
@@ -122,22 +124,21 @@ public void draw() {
 
   // set the activity alpha value for inactive items based on the last activity
   setActivityAlpha();
-  shaderSetUnfiforms();
+  // shaderSetUnfiforms();
   // filter(shader1);
 }
 // PGraphics shaderCanvas = createGraphics(width, height);
 // PShader shader = loadShader("/input/shader.glsl");
 
 public void shaderSetUnfiforms() {
-    shaderCanvas.beginDraw();
+    // shaderCanvas.beginDraw();
 
-    shaderCanvas.background(0);
-    shaderCanvas.image(get(), 0,0);
-    shaderCanvas.endDraw();
+    // shaderCanvas.background(0);
+    // shaderCanvas.image(get(), 0,0);
+    // shaderCanvas.endDraw();
 
-    shader1.set("u_time", millis() / 1000.0f);
-    shader1.set("u_tex0", shaderCanvas.get());
-    filter(shader1);
+    // shader1.set("u_time", millis() / 1000.0);
+    // shader1.set("u_tex0", shaderCanvas.get());
     // filter(shader1);
 }
 
@@ -162,7 +163,7 @@ boolean hatLeftPressed, hatRightPressed, hatUpPressed, hatDownPressed, crossPres
 
 public void joystickLeft(float x, float y) {
   if (x > 0.05f || x < -0.05f || y > 0.05f || y < -0.05f) {
-    if (L2Pressed == true || true) {
+    if (L2Pressed == true) {
       moveOnGrid(x, y);
     } else {
       move(x, y);
@@ -1531,7 +1532,7 @@ class camItem extends GraphicItem {
     String[] cameras = Capture.list();
     println("\nAvailable Cameras: ");
     printArray(cameras);
-    cam = new Capture(main, 1920/2, 1080/2, cameras[cameraIndex], 25);
+    cam = new Capture(main, 1080/2, 1080/2, cameras[cameraIndex], 25);
     cam.start();
     camModeLive = true;
     defaultColor = true;
@@ -2052,6 +2053,7 @@ public void setStrokeWeightMinus() {
 
 // EDITABLE VARIABLES
 int [] myColors = {0xFF000000, 0xFFFF0000, 0xFFFFFF00, 0xFF00FF00, 0xFF00FFFF, 0xFF0000FF, 0xFFFF00FF, 0xFFFFFFFF}; // preset if no image is found to import colors
+ArrayList<PImage> myColorsImages = new ArrayList<PImage>();
 /*
  You can use an image as source to load a range of colors to use it myColors array.
  The source image must be placed in the data folder 'data/input/colors' and is imported and analysed at setup.
@@ -2143,7 +2145,7 @@ public void setItemColorToPrevious() {
 
 public void setBackgroundColorToNext() {
 
-  // increase bgColIndex by one
+   // increase bgColIndex by one
   bgColorIndex++;
 
   // if bgColIndex exeeds total amount of colors in myColors, then jump back to zero
@@ -2908,23 +2910,51 @@ public void displayJoystickState() {
     }
     
     //draw joystick
+    int bottomOffset = height - 35;
+    int offsetCircle = 35;
+    int offsetText = 75;
+    int offsetTitle = 200;
+    int offsetDescription = width - 35;
     pushStyle();
-        fill(0,0,255);
+        fill(0);
         noStroke();
-        circle(100 + LX * 10,100 + LY * 10,10);
+        circle(offsetCircle + LX * 10, bottomOffset + LY * 10, 5);
     popStyle();
+
     pushStyle();
         noFill();
-        strokeWeight(2);
+        strokeWeight(1);
         stroke(0);
-        fill(0,0,255);
-        circle(100, 100, 35);
-    
-    textFont(UIFontSmall);
-    textAlign(LEFT, TOP);
-    text("LX: " + String.format("%.3f", LX), 10, 150);
-    text("LY: " + String.format("%.3f", LY), 10, 200);
+        circle(offsetCircle, bottomOffset, 35);
     popStyle();
+
+    pushStyle();
+        noStroke();
+        fill(0);
+        textFont(UIFontMono);
+        textAlign(LEFT, TOP);
+        text("LX: " + String.format("%.3f", LX), offsetText, bottomOffset - 20);
+        text("LY: " + String.format("%.3f", LY), offsetText, bottomOffset);
+    popStyle();
+
+    pushStyle();
+        noStroke();
+        fill(0);
+        textFont(UIFontMono);
+        textAlign(LEFT, TOP);
+        text("NOT INTUITIVE", offsetTitle, bottomOffset - 20);
+    popStyle();
+
+    pushStyle();
+        noStroke();
+        // textLeading()
+        fill(0);
+        textFont(UIFontMono);
+        textAlign(RIGHT, TOP);
+        text("REDISCOVER YOUR CHILDLIKE SOUL BY LOSING YOUR USUAL \n BEARINGS AND CREATING INSTINCTIVELY AND RANDOMLY.", offsetDescription, bottomOffset-20);
+    popStyle();
+
+
 }
 
 public void createRandomJoystickDrift() {
@@ -3320,6 +3350,7 @@ float UIstrokeWeight;
 PFont UIFontRegular;
 PFont UIFontBold;
 PFont UIFontSmall;
+PFont UIFontMono;
 
 
 // –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––-–––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– ADD ITEM –––––––––––––––––
@@ -3617,6 +3648,15 @@ public void loadFiles() {
   bgColorIndex = myColors.length-1;
   bgColor = myColors[bgColorIndex];
 
+  // // Check for background images in /input/_bg folder
+  // File bgFolder = new File(dataPath("input/_bg/"));
+  // File[] bgFiles = bgFolder.listFiles();
+
+  // // Load background images into new Array
+
+  // for (int i = 0; i < bgFiles.length; i++) {
+  //   myColorsImages.add(loadImage(""+bgFiles[i]));
+  // }
 
   // list all files in data folder
   files = folder.listFiles();
@@ -3721,6 +3761,7 @@ public void setupInterface() {
   UIFontRegular = createFont("interface/font/strokeWeight-100.otf", UItextSize);
   UIFontBold = createFont("interface/font/strokeWeight-180.otf", UItextSize);
   UIFontSmall = createFont("interface/font/strokeWeight-100.otf", UItextSize*0.25f);
+  UIFontMono = createFont("interface/font/SpaceMono-Regular.otf", 14);
 }
 
 
@@ -3943,7 +3984,7 @@ public void playBackgroundSound() {
 }
 
 
-  public void settings() { size(1920/2, 1080/2, P2D); }
+  public void settings() { size(1280, 720, FX2D); }
 
   static public void main(String[] passedArgs) {
     String[] appletArgs = new String[] { "layoutTool" };

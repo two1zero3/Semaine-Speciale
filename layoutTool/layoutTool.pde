@@ -13,9 +13,9 @@ import processing.sound.*;
 // –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––-–––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– EDITABLE VARIABLES –––––––
 
 // Setup which controller setup you want to use to run the program.
-boolean gamepad = false;
+boolean gamepad = true;
 boolean gamepadFallback = false;
-boolean keyboardFallback = true;
+boolean keyboardFallback = false;
 
 // Turn sound on or off
 Boolean interfaceSound = true;
@@ -30,12 +30,15 @@ PShader shader1;
 // –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––-–––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– SETUP ––––––––––––––––––––
 
 void setup() {
-  size(1920/2, 1080/2, P2D);
+  size(1280, 720, FX2D);
 
-  shaderCanvas = createGraphics(800, 800, P2D);
-  shader1 = loadShader("input/shader.glsl");
-  shader1.set("u_resolution", float(width), float(height));
+  // shaderCanvas = createGraphics(800, 800);
+  // shader1 = loadShader("input/shader.glsl");
+  // shader1.set("u_resolution", float(width), float(height));
 
+  // Uncomment the following two lines to see the available fonts 
+  String[] fontList = PFont.list();
+  printArray(fontList);
 
   // Setup all inputs
   setupInterface();
@@ -66,7 +69,6 @@ void draw() {
   checkFiles();
 
   background(bgColor);
-
   // // display debug joystick state icon
   // if (true) {
   //   displayJoystickState();
@@ -97,6 +99,6 @@ void draw() {
 
   // set the activity alpha value for inactive items based on the last activity
   setActivityAlpha();
-  shaderSetUnfiforms();
+  // shaderSetUnfiforms();
   // filter(shader1);
 }
