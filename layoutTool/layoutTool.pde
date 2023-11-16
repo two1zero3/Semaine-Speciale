@@ -13,9 +13,9 @@ import processing.sound.*;
 // –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––-–––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– EDITABLE VARIABLES –––––––
 
 // Setup which controller setup you want to use to run the program.
-boolean gamepad = true;
+boolean gamepad = false;
 boolean gamepadFallback = false;
-boolean keyboardFallback = false;
+boolean keyboardFallback = true;
 
 // Turn sound on or off
 Boolean interfaceSound = true;
@@ -25,15 +25,17 @@ Boolean backgroundSound = true;
 int cameraIndex = 0;
 
 PGraphics shaderCanvas;
-PShader shader;
+PShader shader1;
 
 // –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––-–––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– SETUP ––––––––––––––––––––
 
 void setup() {
-  size(800, 800, P2D);
+  size(1920/2, 1080/2, P2D);
 
   shaderCanvas = createGraphics(800, 800, P2D);
-  shader = loadShader("shader.glsl");
+  shader1 = loadShader("input/shader.glsl");
+  shader1.set("u_resolution", float(width), float(height));
+
 
   // Setup all inputs
   setupInterface();
@@ -95,4 +97,6 @@ void draw() {
 
   // set the activity alpha value for inactive items based on the last activity
   setActivityAlpha();
+  shaderSetUnfiforms();
+  // filter(shader1);
 }
